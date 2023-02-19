@@ -1,11 +1,7 @@
 ---
-title: "apple-watch"
+title: "Janick's Apple Watch fitness dashboard"
+author: "Janick Weberpals"
+date: "`r Sys.Date()`"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+This quarto website aims to give an overview on fitness activities

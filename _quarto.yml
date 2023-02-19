@@ -1,8 +1,9 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "apple-watch"
+  title: "Apple watch fitness dahsboard"
   navbar:
     left:
       - href: index.qmd
