@@ -3,12 +3,13 @@ project:
   output-dir: docs
 
 website:
-  title: "Apple watch fitness dahsboard"
+  title: "Apple watch fitness dashboard"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: general.qmd
+        text: General statistics
 
 format:
   html:

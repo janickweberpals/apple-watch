@@ -4,4 +4,4 @@ author: "Janick Weberpals"
 date: "`r Sys.Date()`"
 ---
 
-This quarto website aims to give an overview on fitness activities
+Welcome to the Apple Activity dashboard displaying my day-to-day activities as captured by my various health devices -particularly my Apple watch- and aggregated via the Apple Health application.
