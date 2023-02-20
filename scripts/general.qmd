@@ -1,0 +1,27 @@
+---
+title: "General statistics"
+author: "Janick Weberpals"
+date: "`r Sys.Date()`"
+---
+
+This quarto website aims to give an overview on fitness activities
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+suppressPackageStartupMessages(library(here))
+suppressPackageStartupMessages(library(tidyverse))
+
+# Read and clean raw data
+source(here::here("functions", "read_xml.R"))
+source(here::here("functions", "read_workouts.R"))
+
+master <- load_xml()
+workouts <- load_workouts()
+```
+
+# Dataset descriptives
+
+The dataset we are using for this simple dashboard comes from one person and includes `r format(nrow(master), big.mark = ",")` unique measurements, recorded between `r min(master$year)` and `r max(master$year)`. These activities span the following activity categories:
