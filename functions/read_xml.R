@@ -13,28 +13,32 @@ load_xml <- function(){
   # format variables correctly
   xml_df_clean <- xml_df %>% 
     dplyr::select(type, sourceName, unit, startDate, endDate, value) %>% 
-    # make value variable numeric
-    dplyr::mutate(value = as.numeric(as.character(value))) %>% 
-    # make endDate in a date time variable POSIXct using lubridate with eastern time zone
-    dplyr::mutate_at(dplyr::vars(tidyr::ends_with("Date")), function(x) lubridate::ymd_hms(x, tz="Europe/Zurich")) %>% 
     # remove prefix from type variable
-    dplyr::mutate(type2 = stringr::str_remove(type, "HKQuantityTypeIdentifier|HKCategoryTypeIdentifier|HKDataType")) %>% 
-    # remove some variables
-    dplyr::select(activity = type2,
-                  source = sourceName,
-                  unit,
-                  startDate,
-                  endDate,
-                  value) %>% 
+    dplyr::mutate(type = stringr::str_remove(type, "HKQuantityTypeIdentifier|HKCategoryTypeIdentifier|HKDataType")) %>%
+    # formats
+    dplyr::mutate(dplyr::across(tidyselect::ends_with("Date"), function(x) lubridate::ymd_hms(x))) %>% 
+    dplyr::mutate(dplyr::across(c(type, sourceName, unit), as.factor)) %>% 
+    # making value numeric will introduce NA's for AppleStandHour, AudioExposureEvent and SleepAnalysis
+    dplyr::mutate(value = as.numeric(value)) %>% 
+    # select and rename some variables
+    dplyr::select(
+      activity = type,
+      source = sourceName,
+      unit,
+      start_date = startDate,
+      end_date = endDate,
+      value
+      ) %>% 
     # create some more derived features
     dplyr::mutate(
-      date = as.Date(startDate),
-      year = lubridate::year(startDate),
-      month = lubridate::month(startDate),
-      day = lubridate::wday(startDate, label = T),
-      activityLengthMin = round(as.numeric((endDate - startDate)/60), digits = 2)
-    )
+      date = as.Date(start_date),
+      year = lubridate::year(start_date),
+      month = lubridate::month(start_date),
+      day = lubridate::wday(start_date, label = T),
+      activity_length_min = round(as.numeric((end_date - start_date)/60), digits = 2)
+      )
   
+  #message("Making value numeric will introduce NA's for AppleStandHour, AudioExposureEvent and SleepAnalysis")
   
   return(xml_df_clean)
   
