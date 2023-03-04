@@ -1,11 +1,11 @@
 # load xml data and transform it to dataframe
 # adapted from https://gist.github.com/ryanpraski/ba9baee2583cfb1af88ca4ec62311a3d
-load_xml <- function(){
+load_xml <- function(path = NULL){
   
   suppressPackageStartupMessages(library(dplyr))
   
   #load apple health export.xml file
-  xml <- XML::xmlParse(here::here("data/apple_health_export", "export.xml"))
+  xml <- XML::xmlParse(path)
   
   #transform xml file to data frame - select the Record rows from the xml file
   xml_df <- XML:::xmlAttrsToDataFrame(xml["//Record"])

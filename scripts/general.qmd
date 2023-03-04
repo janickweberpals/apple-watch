@@ -19,6 +19,7 @@ source(here::here("functions", "read_xml.R"))
 source(here::here("functions", "read_workouts.R"))
 
 master <- load_xml()
+honey <- load_xml(here::here("data/apple_health_export_honey", "export.xml"))
 workouts <- load_workouts()
 ```
 
